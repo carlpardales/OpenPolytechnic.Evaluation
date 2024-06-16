@@ -22,9 +22,7 @@ namespace API
                 client.BaseAddress = new Uri("https://raw.githubusercontent.com");
             });
 
-            builder.Services
-                .AddTransient<GetAllDetails>()
-                .AddTransient<Details>();
+            builder.Services.AddTransient<Details>();
 
             var app = builder.Build();
 

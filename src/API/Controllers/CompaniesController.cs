@@ -4,28 +4,18 @@ using Domain;
 
 namespace API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v1/[controller]")]
     [ApiController]
     public class CompaniesController : ControllerBase
     {
-        private readonly GetAllDetails _getAllDetails;
         private readonly Details _details;
 
-        public CompaniesController(GetAllDetails getAllDetails, Details details)
+        public CompaniesController(Details details)
         {
-            _getAllDetails = getAllDetails;
             _details = details;
         }
 
-        [HttpGet] //api/companies
-        public async Task<ActionResult<List<Company>>> GetCompanies()
-        {
-            var companies = await _getAllDetails.ExecuteAsync();         
-
-            return Ok(companies);
-        }
-
-        [HttpGet("{id}")] //api/companies/1
+        [HttpGet("{id}")] //api/v1/companies/1
         public async Task<ActionResult> GetCompany(string id)
         {
             var company = await _details.ExecuteAsync(id);

@@ -12,7 +12,7 @@ namespace Application.Companies
             _companyRepository = companyRepository;
         }
 
-        public async Task<Company> ExecuteAsync(string companyId)
+        public async Task<Company?> ExecuteAsync(string companyId)
         {
             return await _companyRepository.GetCompanyByIdAsync(companyId);
         }

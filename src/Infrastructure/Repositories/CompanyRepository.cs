@@ -13,12 +13,6 @@ namespace Infrastructure.Repositories
             _httpClient = httpClient;
         }
 
-        public async Task<List<Company>> GetAllAsync()
-        {
-
-            return await GetAll();
-        }
-
         public async Task<Company?> GetCompanyByIdAsync(string companyId)
         {
             var company = (await GetAll()).Find(c => c.Id == companyId);
@@ -32,8 +26,8 @@ namespace Infrastructure.Repositories
 
             try
             {
-                var company1Task = GetCompany("/openpolytechnic/dotnet-developer-evaluation/main/xml-apih/3.xml");
-                var company2Task = GetCompany("/openpolytechnic/dotnet-developer-evaluation/main/xml-apih/2.xml");
+                var company1Task = GetCompany("/openpolytechnic/dotnet-developer-evaluation/main/xml-api/1.xml");
+                var company2Task = GetCompany("/openpolytechnic/dotnet-developer-evaluation/main/xml-api/2.xml");
 
                 await Task.WhenAll(company1Task, company2Task);
 
@@ -55,7 +49,7 @@ namespace Infrastructure.Repositories
 
             if (!response.IsSuccessStatusCode)
             {
-                // TODO: Not handled yet
+                // TODO: Throwing exception atm. Find better way to handle 3rd party API errors.
                 throw new HttpRequestException($"Error fetching XML data from {path}: {response.ReasonPhrase}");
             }
 
@@ -63,7 +57,7 @@ namespace Infrastructure.Repositories
             string xmlContentAsString = await response.Content.ReadAsStringAsync();
             XDocument xmlDoc = XDocument.Parse(xmlContentAsString);
 
-            Company company = new Company
+            Company company = new()
             {
                 Id = xmlDoc.Root?.Element("id")?.Value ?? string.Empty,
                 Name = xmlDoc.Root?.Element("name")?.Value ?? string.Empty,
