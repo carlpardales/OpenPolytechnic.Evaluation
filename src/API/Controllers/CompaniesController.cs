@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Application.Companies;
-using Domain;
 
 namespace API.Controllers
 {
@@ -8,9 +7,9 @@ namespace API.Controllers
     [ApiController]
     public class CompaniesController : ControllerBase
     {
-        private readonly Details _details;
+        private readonly IDetails _details;
 
-        public CompaniesController(Details details)
+        public CompaniesController(IDetails details)
         {
             _details = details;
         }

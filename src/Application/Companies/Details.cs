@@ -3,7 +3,12 @@ using Domain;
 
 namespace Application.Companies
 {
-    public class Details
+    public interface IDetails
+    {
+        Task<Company?> ExecuteAsync(string companyId);
+    }
+
+    public class Details : IDetails
     {
         private readonly ICompanyRepository _companyRepository;
 
